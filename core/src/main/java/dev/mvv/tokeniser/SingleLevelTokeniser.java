@@ -2,10 +2,10 @@ package dev.mvv.tokeniser;
 
 import dev.mvv.token.BracketedWords;
 import dev.mvv.token.Token;
+import dev.mvv.token.TokenString;
 import dev.mvv.token.Word;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static dev.mvv.token.Bracket.NONE;
 import static dev.mvv.token.Bracket.byClosing;
@@ -16,9 +16,9 @@ import static java.util.Collections.emptyList;
 public class SingleLevelTokeniser implements Tokeniser {
 
     @Override
-    public List<Token> tokenise(String s) {
+    public TokenString tokenise(String s) {
         if (s.isEmpty()) {
-            return emptyList();
+            return new TokenString(emptyList());
         }
 
         char[] charArray = s.toCharArray();
@@ -63,6 +63,6 @@ public class SingleLevelTokeniser implements Tokeniser {
             result.add(new Word(String.valueOf(charArray, from, charArray.length - from)));
         }
 
-        return result;
+        return new TokenString(result);
     }
 }
