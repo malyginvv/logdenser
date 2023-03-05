@@ -48,8 +48,10 @@ public class SingleLevelTokeniser implements Tokeniser {
                 } else {
                     var closing = byClosing(c);
                     if (closing == bracket) {
+                        bracketed.add(new Word(String.valueOf(charArray, from, i - from)));
                         result.add(new BracketedWords(new ArrayList<>(bracketed), bracket));
                         bracketed.clear();
+                        bracket = NONE;
                         from = i + 1;
                     }
                 }
