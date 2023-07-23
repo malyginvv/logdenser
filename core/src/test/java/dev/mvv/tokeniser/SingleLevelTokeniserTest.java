@@ -1,14 +1,12 @@
 package dev.mvv.tokeniser;
 
-import dev.mvv.token.BracketedWords;
 import dev.mvv.token.TokenString;
-import dev.mvv.token.Word;
+import dev.mvv.token.TokenStringBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import static dev.mvv.token.Bracket.ROUND;
@@ -25,15 +23,24 @@ class SingleLevelTokeniserTest {
         return Stream.of(
                 arguments(
                         "Lorem ipsum dolor sit amet, consectetur adipiscing",
-                        new TokenString(List.of(new Word("Lorem"), new Word("ipsum"), new Word("dolor"), new Word("sit"),
-                                new Word("amet,"), new Word("consectetur"), new Word("adipiscing")))
+                        new TokenStringBuilder().addWords("Lorem", "ipsum", "dolor", "sit", "amet,",
+                                "consectetur", "adipiscing").build()
                 ),
                 arguments(
                         "Lorem [ipsum dolor sit] amet, (consectetur adipiscing)",
-                        new TokenString(List.of(new Word("Lorem"),
-                                new BracketedWords(List.of(new Word("ipsum"), new Word("dolor"), new Word("sit")), SQUARE),
-                                new Word("amet,"),
-                                new BracketedWords(List.of(new Word("consectetur"), new Word("adipiscing")), ROUND)))
+                        new TokenStringBuilder().addWord("Lorem").addBracketedWords(SQUARE, "ipsum", "dolor", "sit")
+                                .addWord("amet,").addBracketedWords(ROUND, "consectetur", "adipiscing").build()
+                ),
+                arguments(
+                        "Lorem[ipsum dolor sit] amet, 100(ms)",
+                        new TokenStringBuilder().addWord("Lorem").addBracketedWords(SQUARE, "ipsum", "dolor", "sit")
+                                .addWord("amet,").addWord("100").addBracketedWords(ROUND, "ms").build()
+                ),
+                arguments(
+                        "Lorem[ipsum [dolor] sit] amet, (consectetur (adipiscing))",
+                        new TokenStringBuilder().addWord("Lorem").addBracketedWords(SQUARE, "ipsum", "[dolor")
+                                .addWord("sit]").addWord("amet,").addBracketedWords(ROUND, "consectetur", "(adipiscing")
+                                .addWord(")").build()
                 )
         );
     }

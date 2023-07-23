@@ -43,6 +43,10 @@ public class SingleLevelTokeniser implements Tokeniser {
                     var opening = byOpening(c);
                     if (opening != NONE) {
                         bracket = opening;
+                        if (from < i) {
+                            var word = new Word(String.valueOf(charArray, from, i - from));
+                            result.add(word);
+                        }
                         from = i + 1;
                     }
                 } else {
