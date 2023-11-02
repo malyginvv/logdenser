@@ -1,4 +1,4 @@
-package dev.mvv.tokeniser;
+package dev.mvv.tokenizer;
 
 import dev.mvv.token.EnclosedWords;
 import dev.mvv.token.Token;
