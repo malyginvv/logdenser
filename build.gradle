@@ -15,6 +15,10 @@ subprojects {
         mavenCentral()
     }
 
+    dependencies {
+        implementation "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
+    }
+
     test {
         useJUnitPlatform()
     }

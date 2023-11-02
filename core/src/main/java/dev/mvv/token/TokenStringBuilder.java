@@ -28,13 +28,13 @@ public class TokenStringBuilder {
         return this;
     }
 
-    public TokenStringBuilder addBracketedWords(BracketedWords words) {
+    public TokenStringBuilder addEnclosedWords(EnclosedWords words) {
         tokens.add(words);
         return this;
     }
 
-    public TokenStringBuilder addBracketedWords(Bracket bracket, String... words) {
-        return addBracketedWords(new BracketedWords(Arrays.stream(words).map(Word::new).toList(), bracket));
+    public TokenStringBuilder addEnclosedWords(char opening, char closing, String... words) {
+        return addEnclosedWords(new EnclosedWords(Arrays.stream(words).map(Word::new).toList(), opening, closing));
     }
 
     public TokenString build() {
