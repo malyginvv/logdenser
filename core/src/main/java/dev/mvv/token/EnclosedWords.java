@@ -39,10 +39,6 @@ public class EnclosedWords implements Token {
         this.content = opening + words.stream().map(Word::content).collect(joining(" ")) + closing;
     }
 
-    public EnclosedWords(Collection<Word> words, Bracket bracket) {
-        this(words, bracket.opening, bracket.closing);
-    }
-
     @Override
     public @NotNull String content() {
         return content;

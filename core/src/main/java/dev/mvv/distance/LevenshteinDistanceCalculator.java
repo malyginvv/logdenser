@@ -1,22 +1,24 @@
 package dev.mvv.distance;
 
 import dev.mvv.token.TokenString;
+import org.jetbrains.annotations.NotNull;
 
 import static java.lang.Math.min;
+import static java.util.Collections.emptyList;
 
 public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
     @Override
-    public int distance(TokenString first, TokenString second) {
+    public @NotNull EditDistance distance(@NotNull TokenString first, @NotNull TokenString second) {
         var firstLength = first.tokens().size();
         var secondLength = second.tokens().size();
         if (first.tokens().isEmpty()) {
-            return secondLength;
+            return new EditDistance(secondLength, emptyList());
         }
         if (second.tokens().isEmpty()) {
-            return firstLength;
+            return new EditDistance(firstLength, emptyList());
         }
         if (first.equals(second)) {
-            return 0;
+            return new EditDistance(0, emptyList());
         }
 
         var rows = firstLength + 1;
@@ -36,6 +38,6 @@ public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
             }
         }
 
-        return distances[firstLength][secondLength];
+        return new EditDistance(distances[firstLength][secondLength], emptyList());
     }
 }
