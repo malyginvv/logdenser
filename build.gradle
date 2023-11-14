@@ -17,6 +17,8 @@ subprojects {
 
     dependencies {
         implementation "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
+
+        testImplementation "org.mockito:mockito-core:$mockitoVersion"
     }
 
     test {

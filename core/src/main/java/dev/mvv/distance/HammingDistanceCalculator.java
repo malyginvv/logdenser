@@ -29,12 +29,12 @@ public class HammingDistanceCalculator implements EditDistanceCalculator {
 
     @Override
     public @NotNull EditDistance distance(@NotNull TokenString first, @NotNull TokenString second) {
-        var firstSize = first.tokens().size();
-        var secondSize = second.tokens().size();
+        var firstSize = first.size();
+        var secondSize = second.size();
         var minSize = min(firstSize, secondSize);
         var edits = new ArrayList<Edit>();
         for (int i = 0; i < minSize; i++) {
-            if (!first.tokens().get(i).content().equals(second.tokens().get(i).content())) {
+            if (!first.token(i).content().equals(second.token(i).content())) {
                 edits.add(new Edit(i, SUBSTITUTION));
             }
         }

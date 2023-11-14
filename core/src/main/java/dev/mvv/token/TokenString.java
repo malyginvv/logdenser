@@ -1,5 +1,7 @@
 package dev.mvv.token;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,7 +10,28 @@ import java.util.stream.Collectors;
  *
  * @param tokens list of tokens
  */
-public record TokenString(List<Token> tokens) {
+public record TokenString(@NotNull List<@NotNull Token> tokens) {
+
+    public boolean isEmpty() {
+        return tokens.isEmpty();
+    }
+
+    public @NotNull Token firstToken() {
+        return tokens.get(0);
+    }
+
+    public @NotNull Token token(int index) {
+        return tokens.get(index);
+    }
+
+    /**
+     * Returns number of tokens in this sequence.
+     *
+     * @return number of tokens
+     */
+    public int size() {
+        return tokens.size();
+    }
 
     @Override
     public String toString() {

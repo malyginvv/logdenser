@@ -75,7 +75,7 @@ class SingleLevelTokenizerTest {
 
     @MethodSource("tokenizedStrings")
     @ParameterizedTest(name = INDEX_PLACEHOLDER)
-    void shouldTokeniseNonEmptyStrings(String input, TokenString expected) {
+    void should_tokenise_non_empty_strings(String input, TokenString expected) {
         var tokens = tokenizer.tokenize(input);
 
         assertEquals(expected, tokens);
@@ -83,7 +83,7 @@ class SingleLevelTokenizerTest {
 
     @MethodSource("illegalEnclosingMappings")
     @ParameterizedTest(name = INDEX_PLACEHOLDER)
-    void shouldNotCreateIllegalTokenizer(Map<Character, Character> enclosingMapping) {
+    void should_not_create_illegal_tokenizer(Map<Character, Character> enclosingMapping) {
         assertThrows(IllegalArgumentException.class, () -> new SingleLevelTokenizer(enclosingMapping));
     }
 }

@@ -9,12 +9,12 @@ import static java.util.Collections.emptyList;
 public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
     @Override
     public @NotNull EditDistance distance(@NotNull TokenString first, @NotNull TokenString second) {
-        var firstLength = first.tokens().size();
-        var secondLength = second.tokens().size();
-        if (first.tokens().isEmpty()) {
+        var firstLength = first.size();
+        var secondLength = second.size();
+        if (first.isEmpty()) {
             return new EditDistance(secondLength, emptyList());
         }
-        if (second.tokens().isEmpty()) {
+        if (second.isEmpty()) {
             return new EditDistance(firstLength, emptyList());
         }
         if (first.equals(second)) {
@@ -32,7 +32,7 @@ public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
         }
         for (var r = 1; r < rows; r++) {
             for (var c = 1; c < cols; c++) {
-                int prefixDistance = first.tokens().get(r - 1).equals(second.tokens().get(c - 1)) ? 0 : 1;
+                int prefixDistance = first.token(r - 1).equals(second.token(c - 1)) ? 0 : 1;
                 int distance = min(min(distances[r - 1][c], distances[r][c - 1]), distances[r - 1][c - 1]);
                 distances[r][c] = distance + prefixDistance;
             }

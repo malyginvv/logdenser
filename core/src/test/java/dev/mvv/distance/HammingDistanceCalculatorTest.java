@@ -27,7 +27,7 @@ class HammingDistanceCalculatorTest {
 
     @MethodSource("tokenStrings")
     @ParameterizedTest(name = INDEX_PLACEHOLDER)
-    void shouldCalculateDistance(TokenString first, TokenString second, EditDistance expectedDistance) {
+    void should_calculate_distance(TokenString first, TokenString second, EditDistance expectedDistance) {
         var distance = calculator.distance(first, second);
 
         assertEquals(expectedDistance, distance);
