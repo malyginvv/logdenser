@@ -25,7 +25,7 @@ import static java.util.Collections.emptyList;
 /**
  * Condenses a list of token strings with the same length into groups of identical results.
  */
-public class SameLengthTokenCondenser {
+public class SameLengthTokenCondenser implements TokenCondenser {
 
     private final EditDistanceCalculator editDistanceCalculator;
     private final BiPredicate<TokenString, TokenString> tokenStringMatcher;
@@ -51,6 +51,7 @@ public class SameLengthTokenCondenser {
      * @param tokenStrings A list of token strings.
      * @return A list representing groups of identical token strings of the same length.
      */
+    @Override
     public @NotNull List<@NotNull SameResults> condense(@NotNull List<@NotNull TokenString> tokenStrings) {
         if (tokenStrings.isEmpty()) {
             return emptyList();
