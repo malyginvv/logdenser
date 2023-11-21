@@ -1,4 +1,4 @@
-package dev.mvv.processor;
+package dev.mvv.condenser;
 
 import dev.mvv.distance.Edit;
 import dev.mvv.distance.EditDistance;
@@ -51,7 +51,7 @@ public class SameLengthTokenCondenser {
      * @param tokenStrings A list of token strings.
      * @return A list representing groups of identical token strings of the same length.
      */
-    public @NotNull List<SameResults> condense(@NotNull List<TokenString> tokenStrings) {
+    public @NotNull List<@NotNull SameResults> condense(@NotNull List<@NotNull TokenString> tokenStrings) {
         if (tokenStrings.isEmpty()) {
             return emptyList();
         }

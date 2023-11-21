@@ -1,4 +1,4 @@
-package dev.mvv.processor;
+package dev.mvv.condenser;
 
 import dev.mvv.distance.EditDistanceBuilder;
 import dev.mvv.distance.EditDistanceCalculator;
