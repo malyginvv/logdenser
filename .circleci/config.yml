@@ -8,6 +8,9 @@ jobs:
       - image: circleci/openjdk:11.0.3-jdk-stretch
     steps:
       - checkout
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
