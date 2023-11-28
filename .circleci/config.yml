@@ -12,3 +12,9 @@ jobs:
           name: Run tests
           command:
             ./gradlew test
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - test
