@@ -1,13 +1,20 @@
 plugins {
-    id "java"
-    id "java-test-fixtures"
+    id "jacoco"
 }
-
-group "dev.mvv"
-version "1.0-SNAPSHOT"
 
 dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
+}
+
+jacoco {
+    toolVersion "0.8.9"
+}
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }

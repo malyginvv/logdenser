@@ -1,5 +1,13 @@
-plugins {
-    id "java"
+allprojects {
+    apply plugin: "java"
+    apply plugin: "java-test-fixtures"
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 group "dev.mvv"
@@ -12,14 +20,8 @@ java {
 }
 
 subprojects {
-    apply plugin: "java"
-
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-
-    repositories {
-        mavenCentral()
-    }
 
     dependencies {
         implementation "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
