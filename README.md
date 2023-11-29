@@ -1,4 +1,4 @@
 # LogDenser
-[![CircleCI status](https://circleci.com/gh/cci-6kengk/logdenser.svg?style=shield&circle-token=dbcbe57418418d5d57e984b53ef23f9eccdb64a9)](https://circleci.com/)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/malyginvv/logdenser/tree/main.svg?style=shield&circle-token=54bd0c276a93aecbd5ed97215329d13f1d06010c)](https://dl.circleci.com/status-badge/redirect/gh/malyginvv/logdenser/tree/main)
 
 Log condenser - a small Java library that packs similar string, usually log messages, together based on similarity. 
