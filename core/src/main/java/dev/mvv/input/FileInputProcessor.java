@@ -6,6 +6,9 @@ import java.util.stream.Stream;
 
 import static java.nio.file.Files.lines;
 
+/**
+ * InputProcessor that extracts string from files..
+ */
 public class FileInputProcessor implements InputProcessor<File> {
     @Override
     public Stream<String> process(File input) {
