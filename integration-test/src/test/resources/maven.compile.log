@@ -1,0 +1,94 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 3.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- enforcer:3.3.0:enforce (enforce-java) @ spring-petclinic ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO]
+[INFO] --- spring-javaformat:0.0.39:validate (default) @ spring-petclinic ---
+[INFO]
+[INFO] --- checkstyle:3.2.2:check (nohttp-checkstyle-validation) @ spring-petclinic ---
+[INFO] You have 0 Checkstyle violations.
+[INFO]
+[INFO] --- git-commit-id:5.0.1:revision (default) @ spring-petclinic ---
+[INFO] Collected git.build.user.name with value ***
+[INFO] Collected git.build.user.email with value ***
+[INFO] Collected git.branch with value main
+[INFO] --always = true
+[INFO] --dirty = -dirty
+[INFO] --abbrev = 7
+[INFO] Tag refs [[Ref[refs/tags/1.5.x=c36452a2c34443ae26b4ecbba4f149906af14717(-1)]]]
+[INFO] Created map: [{}]
+[INFO] evalCommit is [923e2b7aa331b8194a6579da99fb6388f15d7f3e]
+[INFO] Collected git.commit.id.describe with value 923e2b7
+[INFO] Collected git.commit.id.describe-short with value 923e2b7
+[INFO] Collected git.commit.id with value 923e2b7aa331b8194a6579da99fb6388f15d7f3e
+[INFO] Collected git.commit.id.abbrev with value 923e2b7
+[INFO] Collected git.dirty with value false
+[INFO] Collected git.commit.user.name with value ***
+[INFO] Collected git.commit.user.email with value ***
+[INFO] Collected git.commit.message.full with value Bump Spring Boot to 3.1.3
+[INFO] Collected git.commit.message.short with value Bump Spring Boot to 3.1.3
+[INFO] Collected git.commit.time with value 2023-09-12T13:16:30+0100
+[INFO] Collected git.commit.author.time with value 2023-09-12T13:16:30+0100
+[INFO] Collected git.commit.committer.time with value 2023-09-12T13:16:30+0100
+[INFO] Collected git.remote.origin.url with value https://github.com/spring-projects/spring-petclinic.git
+[INFO] Collected git.tags with value
+[INFO] evalCommit is [923e2b7aa331b8194a6579da99fb6388f15d7f3e]
+[INFO] Tag refs [[Ref[refs/tags/1.5.x=c36452a2c34443ae26b4ecbba4f149906af14717(-1)]]]
+[INFO] Created map: [{}]
+[INFO] Collected git.closest.tag.name with value
+[INFO] evalCommit is [923e2b7aa331b8194a6579da99fb6388f15d7f3e]
+[INFO] Tag refs [[Ref[refs/tags/1.5.x=c36452a2c34443ae26b4ecbba4f149906af14717(-1)]]]
+[INFO] Created map: [{}]
+[INFO] Collected git.closest.tag.commit.count with value
+[INFO] Collected git.total.commit.count with value 873
+[INFO] Collected git.local.branch.ahead with value 0
+[INFO] Collected git.local.branch.behind with value 0
+[INFO] Collected git.build.time with value 2023-05-10T08:42:50+0100
+[INFO] Collected git.build.version with value 3.1.0-SNAPSHOT
+[INFO] Collected git.build.host with value ***
+[INFO] including property git.tags in results
+[INFO] including property git.build.version in results
+[INFO] including property git.branch in results
+[INFO] including property git.build.host in results
+[INFO] including property git.commit.id in results
+[INFO] including property git.commit.user.email in results
+[INFO] including property git.local.branch.behind in results
+[INFO] including property git.commit.author.time in results
+[INFO] including property git.build.user.name in results
+[INFO] including property git.dirty in results
+[INFO] including property git.closest.tag.commit.count in results
+[INFO] including property git.commit.user.name in results
+[INFO] including property git.commit.id.abbrev in results
+[INFO] including property git.commit.id.describe-short in results
+[INFO] including property git.total.commit.count in results
+[INFO] including property git.commit.id.describe in results
+[INFO] including property git.build.user.email in results
+[INFO] including property git.commit.message.short in results
+[INFO] including property git.commit.committer.time in results
+[INFO] including property git.closest.tag.name in results
+[INFO] including property git.local.branch.ahead in results
+[INFO] including property git.commit.time in results
+[INFO] including property git.build.time in results
+[INFO] including property git.commit.message.full in results
+[INFO] including property git.remote.origin.url in results
+[INFO]
+[INFO] --- spring-boot:3.1.3:build-info (default) @ spring-petclinic ---
+[INFO]
+[INFO] --- resources:3.3.1:resources (default-resources) @ spring-petclinic ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 43 resources from src\main\resources to target\classes
+[INFO]
+[INFO] --- compiler:3.11.0:compile (default-compile) @ spring-petclinic ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 24 source files with javac [debug release 17] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.331 s
+[INFO] Finished at: 2023-12-02T23:36:49Z
+[INFO] ------------------------------------------------------------------------
