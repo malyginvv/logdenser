@@ -35,7 +35,6 @@ class CompositeTransformerTest {
         assertEquals(expected, result);
     }
 
-
     public static Stream<Arguments> transformations() {
         return Stream.of(
                 arguments("First second third", "second third"),

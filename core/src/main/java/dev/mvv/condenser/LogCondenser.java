@@ -26,7 +26,7 @@ public class LogCondenser<T> {
     /**
      * Constructs a LogCondenser with the necessary processing components.
      *
-     * @param inputProcessor The InputProcessor responsible for processing the input log data of type `T`.
+     * @param inputProcessor The InputProcessor responsible for processing the input log data of type T.
      * @param filter         A Predicate used for filtering log messages based on specified conditions.
      * @param lineProcessor  The LineProcessor used to process individual log lines for transformation.
      * @param tokenCondenser The TokenCondenser used to condense tokenized log data.
