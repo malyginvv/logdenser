@@ -7,8 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.UnaryOperator;
 
 /**
- * Responsible for processing input lines by applying a series of transformations
- * and tokenizing the resulting string.
+ * Responsible for processing input lines by applying a series of transformations and tokenizing the resulting string.
  */
 public class LineProcessor {
 
