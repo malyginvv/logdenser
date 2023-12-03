@@ -61,7 +61,7 @@ jobs:
       - store_artifacts:
           path: core/build/reports/jacoco/test/html
       - codecov/upload:
-          file: core/build/reports/jacoco/test/jacocoTestReport.csv
+          file: core/build/reports/jacoco/test/jacocoTestReport.xml
 
 workflows:
   version: 2
