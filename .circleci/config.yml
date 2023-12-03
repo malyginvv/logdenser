@@ -1,5 +1,7 @@
 version: "2.1"
 
+orbs:
+  codecov: codecov/codecov@3.3.0
 jobs:
   build:
     environment:
@@ -58,6 +60,8 @@ jobs:
           path: core/build/test-results/test
       - store_artifacts:
           path: core/build/reports/jacoco/test/html
+      - codecov/upload:
+          file: core/build/reports/jacoco/test/jacocoTestReport.csv
 
 workflows:
   version: 2
