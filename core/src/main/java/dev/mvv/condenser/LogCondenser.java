@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.groupingBy;
 
 /**
- * A utility for condensing log information represented by a generic type `T`.
+ * A utility for condensing log information represented by a generic type T.
  * It combines various processing components to filter, transform, and group log data for easier analysis and understanding.
  *
  * @param <T> The generic type representing the log information or input data.

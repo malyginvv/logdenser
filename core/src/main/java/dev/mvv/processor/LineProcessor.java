@@ -18,7 +18,7 @@ public class LineProcessor {
      * Constructs a LineProcessor.
      *
      * @param transformer A function that transforms the input line of text before tokenization.
-     * @param tokenizer   A `Tokenizer` implementation used to break the transformed string into tokens.
+     * @param tokenizer   A Tokenizer implementation used to break the transformed string into tokens.
      */
     public LineProcessor(@NotNull UnaryOperator<String> transformer, @NotNull Tokenizer tokenizer) {
         this.transformer = transformer;

@@ -104,4 +104,41 @@ class SameLengthTokenCondenserTest {
         );
         assertIterableEquals(sameResults, results);
     }
+
+    @Test
+    void should_condense_empty_strings() {
+        condenser = new SameLengthTokenCondenser(
+                editDistanceCalculator,
+                (left, right) -> true,
+                1
+        );
+        var string1 = new TokenStringBuilder().build();
+        var string2 = new TokenStringBuilder().build();
+        var string3 = new TokenStringBuilder().build();
+
+        given(editDistanceCalculator.distance(string1, string2)).willReturn(new EditDistanceBuilder().build());
+        given(editDistanceCalculator.distance(string1, string3)).willReturn(new EditDistanceBuilder().build());
+
+        var results = condenser.condense(List.of(string1, string2, string3));
+
+        var fullResult = new FullResultBuilder().build();
+        assertIterableEquals(List.of(new SameResults(fullResult, 3)), results);
+    }
+
+    @Test
+    void should_condense_empty_input() {
+        var results = condenser.condense(List.of());
+
+        assertIterableEquals(List.of(), results);
+    }
+
+    @Test
+    void should_condense_single_input() {
+        var string1 = new TokenStringBuilder().addWords("Lorem1", "ipsum", "sit", "amet").build();
+
+        var results = condenser.condense(List.of(string1));
+
+        var fullResult = new FullResultBuilder().addStatics("Lorem1", "ipsum", "sit", "amet").build();
+        assertIterableEquals(List.of(new SameResults(fullResult, 1)), results);
+    }
 }
