@@ -5,16 +5,15 @@ import dev.mvv.filter.WhitespaceQuotFilter;
 import dev.mvv.input.FileInputProcessor;
 import dev.mvv.processor.LineProcessor;
 import dev.mvv.tokenizer.SingleLevelTokenizer;
-import dev.mvv.transformer.CompositeTransformer;
 import dev.mvv.transformer.FirstWordsCutter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 import static dev.mvv.test.ResourceUtil.fromResource;
+import static java.util.function.UnaryOperator.identity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileLogCondenserTest {
@@ -23,11 +22,32 @@ class FileLogCondenserTest {
 
     @BeforeEach
     void setUp() {
-        logCondenser = new LogCondenser<>(
+        logCondenser = buildCondenser(2);
+    }
+
+    @Test
+    void should_condense_maven_log() {
+        var results = logCondenser.condense(fromResource("maven.compile.log"));
+
+        assertEquals(23, results.size());
+    }
+
+    @Test
+    void should_condense_build_log() {
+        logCondenser = buildCondenser(0);
+
+        var results = logCondenser.condense(fromResource("spring-core-test.log"));
+
+        System.out.println(results);
+        assertEquals(6, results.size());
+    }
+
+    private LogCondenser<File> buildCondenser(int firstWordsToCut) {
+        return new LogCondenser<>(
                 new FileInputProcessor(),
                 new WhitespaceQuotFilter(),
                 new LineProcessor(
-                        new CompositeTransformer(List.of(new FirstWordsCutter(2))),
+                        firstWordsToCut == 0 ? identity() : new FirstWordsCutter(firstWordsToCut),
                         new SingleLevelTokenizer(Map.of('[', ']', '(', ')'))
                 ),
                 new SameLengthTokenCondenser(
@@ -36,12 +56,5 @@ class FileLogCondenserTest {
                         2
                 )
         );
-    }
-
-    @Test
-    void should_condense_maven_log() {
-        var results = logCondenser.condense(fromResource("maven.compile.log"));
-
-        assertEquals(23, results.size());
     }
 }

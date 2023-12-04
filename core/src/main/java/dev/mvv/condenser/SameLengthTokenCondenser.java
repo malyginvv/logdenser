@@ -12,6 +12,7 @@ import dev.mvv.token.Token;
 import dev.mvv.token.TokenString;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.LinkedHashSet;
@@ -20,12 +21,16 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import static dev.mvv.distance.EditType.SUBSTITUTION;
+import static java.lang.System.Logger.Level.DEBUG;
 import static java.util.Collections.emptyList;
 
 /**
  * Condenses a list of token strings with the same length into groups of identical results.
+ * Time complexity of this implementation heavily depends on input variance and matching criteria.
+ * In worst case, when almost every input token string is unique, time complexity reaches O(n<sup>2</sup>).
  */
 public class SameLengthTokenCondenser implements TokenCondenser {
+    private static final Logger LOGGER = System.getLogger(SameLengthTokenCondenser.class.getName());
 
     private final EditDistanceCalculator editDistanceCalculator;
     private final BiPredicate<TokenString, TokenString> tokenStringMatcher;
@@ -63,7 +68,9 @@ public class SameLengthTokenCondenser implements TokenCondenser {
         var tokenCount = tokenStrings.get(0).size();
         List<SameResults> results = new ArrayList<>();
         List<TokenString> input = tokenStrings;
+        int iteration = 1;
         while (!input.isEmpty()) {
+            LOGGER.log(DEBUG, "Condensing token strings, iteration " + iteration + ", input size " + input.size());
             List<TokenString> similar = new ArrayList<>();
             List<TokenString> different = new ArrayList<>();
             BitSet substitutionIndices = new BitSet(tokenCount);
@@ -88,8 +95,10 @@ public class SameLengthTokenCondenser implements TokenCondenser {
                 }
             } // now "similar" contains at least one element and "different" contains everything else; it might be empty
 
+            LOGGER.log(DEBUG, "Found " + similar.size() + " similar token string at iteration " + iteration);
             results.add(fromList(similar, substitutionIndices));
             input = new ArrayList<>(different);
+            iteration++;
         }
         return results;
     }
