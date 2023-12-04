@@ -27,7 +27,7 @@ class FileLogCondenserTest {
 
     @Test
     void should_condense_maven_log() {
-        var results = logCondenser.condense(fromResource("maven.compile.log"));
+        var results = logCondenser.condense(fromResource("maven.compile.log.txt"));
 
         assertEquals(23, results.size());
     }
@@ -36,7 +36,7 @@ class FileLogCondenserTest {
     void should_condense_build_log() {
         logCondenser = buildCondenser(0);
 
-        var results = logCondenser.condense(fromResource("spring-core-test.log"));
+        var results = logCondenser.condense(fromResource("spring-core-test.log.txt"));
 
         System.out.println(results);
         assertEquals(6, results.size());

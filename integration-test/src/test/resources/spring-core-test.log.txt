@@ -1,0 +1,32 @@
+okhttp3.mockwebserver.MockWebServer$3 execute
+MockWebServer[51213] starting to accept connections
+okhttp3.mockwebserver.MockWebServer$4 processOneRequest
+MockWebServer[51213] received request: HEAD /resource HTTP/1.1 and responded: HTTP/1.1 200 OK
+okhttp3.mockwebserver.MockWebServer$3 acceptConnections
+MockWebServer[51213] done accepting connections: Socket closed
+okhttp3.mockwebserver.MockWebServer$3 execute
+MockWebServer[51215] starting to accept connections
+okhttp3.mockwebserver.MockWebServer$4 processOneRequest
+MockWebServer[51215] received request: HEAD /missing HTTP/1.1 and responded: HTTP/1.1 404 Client Error
+okhttp3.mockwebserver.MockWebServer$3 acceptConnections
+MockWebServer[51215] done accepting connections: Socket closed
+okhttp3.mockwebserver.MockWebServer$3 execute
+MockWebServer[51217] starting to accept connections
+okhttp3.mockwebserver.MockWebServer$4 processOneRequest
+MockWebServer[51217] received request: GET /resource HTTP/1.1 and responded: HTTP/1.1 200 OK
+okhttp3.mockwebserver.MockWebServer$3 acceptConnections
+MockWebServer[51217] done accepting connections: Socket closed
+okhttp3.mockwebserver.MockWebServer$3 execute
+MockWebServer[51219] starting to accept connections
+okhttp3.mockwebserver.MockWebServer$4 processOneRequest
+MockWebServer[51219] received request: GET /resource HTTP/1.1 and responded: HTTP/1.1 200 OK
+okhttp3.mockwebserver.MockWebServer$3 acceptConnections
+MockWebServer[51219] done accepting connections: Socket closed
+okhttp3.mockwebserver.MockWebServer$3 execute
+MockWebServer[51221] starting to accept connections
+okhttp3.mockwebserver.MockWebServer$4 processOneRequest
+MockWebServer[51221] received request: HEAD /resource HTTP/1.1 and responded: HTTP/1.1 200 OK
+okhttp3.mockwebserver.MockWebServer$4 processOneRequest
+MockWebServer[51221] received request: HEAD /resource HTTP/1.1 and responded: HTTP/1.1 200 OK
+okhttp3.mockwebserver.MockWebServer$3 acceptConnections
+MockWebServer[51221] done accepting connections: Socket closed
