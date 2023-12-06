@@ -39,7 +39,7 @@ MockWebServer[51221] received request: HEAD /resource HTTP/1.1 and responded: HT
 okhttp3.mockwebserver.MockWebServer$3 acceptConnections
 MockWebServer[51221] done accepting connections: Socket closed
 ```
-Log condenser packs these messages to a list of views like this:
+Log condenser packs these messages to a list of views or combinations.
 ```
 okhttp3.mockwebserver.MockWebServer$3 <execute|acceptConnections> {10}
 okhttp3.mockwebserver.MockWebServer$4 processOneRequest {6}
@@ -48,13 +48,21 @@ MockWebServer <[51213]|[51215]|[51217]|[51219]|[51221]> done accepting connectio
 MockWebServer <[51213]|[51217]|[51219]|[51221]> received request: <HEAD|GET> /resource HTTP/1.1 and responded: HTTP/1.1 200 OK {5}
 MockWebServer [51215] received request: HEAD /missing HTTP/1.1 and responded: HTTP/1.1 404 Client Error {1}
 ```
-The fifth element from the list above could be visualised as:
+Here `<a|b|c>` represents multiple options `a`, `b`, and `c` that are present in the original log. 
+And `{N}` in the end means how many times we've seen that pattern in the log.
+E.g. `okhttp3.mockwebserver.MockWebServer$3 <execute|acceptConnections>` means there were 10 strings like 
+`okhttp3.mockwebserver.MockWebServer$3 execute` and `okhttp3.mockwebserver.MockWebServer$3 acceptConnections`.
+But we don't know how many `... execute` or `... acceptConnections` were there.
+
+The fifth element from the list above could be visualized as:
 ```
                ┌─ [51213] ─┐
                ├─ [51217] ─┤                     ┌─ HEAD ─┐
 MockWebServer ─┼─ [51217] ─┼─ received request: ─┴─ GET ──┴─ /resource HTTP/1.1 and responded: HTTP/1.1 200 OK
                └─ [51219] ─┘
 ```
+Again we can easily see all the possible string combinations, but we don't know the exact combinations.
+This is an intentional limitation that simplifies processing and makes results easier to analyze.
 
 ## Logging
 This library uses [System.Logger API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.Logger.html) for logging. 
