@@ -1,3 +1,4 @@
 rootProject.name = "logdenser"
 include "core"
 include "integration-test"
+include "benchmark"

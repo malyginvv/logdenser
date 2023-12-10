@@ -1,0 +1,13 @@
+plugins {
+    id "me.champeau.jmh" version "0.7.2"
+}
+
+jmh {
+    warmupIterations = 2
+    iterations = 3
+    fork = 1
+}
+
+dependencies {
+    implementation project(":core")
+}
