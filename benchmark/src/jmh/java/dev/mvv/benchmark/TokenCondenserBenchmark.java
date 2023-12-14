@@ -16,22 +16,23 @@ import org.openjdk.jmh.infra.Blackhole;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Collections.shuffle;
-
 @State(Scope.Thread)
 public class TokenCondenserBenchmark {
 
-    @Param({"1000", "10000", "100000", "1000000"})
+    @Param({"1000000"})
     public int inputSize;
 
-    @Param({"true", "false"})
-    public boolean shuffled;
-
-    @Param({"0.01", "0.05", "0.1"})
+    @Param({"0.1", "0.3", "0.5"})
     public double uniqueRatio = 0.01;
 
-    @Param({"1", "2"})
+    @Param({"1", "2", "3"})
     public int maxDistance;
+
+    @Param({"10", "50", "100"})
+    public int wordLength;
+
+    @Param({"10", "50", "100"})
+    public int wordsInString;
 
     public List<TokenString> list;
     public SameLengthTokenCondenser tokenCondenser;
@@ -43,13 +44,10 @@ public class TokenCondenserBenchmark {
         var tokenStringGenerator = new TokenStringGenerator();
         int copies = (int) Math.round(inputSize * uniqueRatio);
         for (int unique = 0; unique < uniqueRatio; unique++) {
-            var tokenString = tokenStringGenerator.generateSimpleString(10, 10);
+            var tokenString = tokenStringGenerator.generateSimpleString(wordLength, wordsInString);
             for (int copy = 0; copy < copies; copy++) {
                 list.add(tokenString);
             }
-        }
-        if (shuffled) {
-            shuffle(list);
         }
 
         tokenCondenser = new SameLengthTokenCondenser(
@@ -69,7 +67,7 @@ public class TokenCondenserBenchmark {
         blackhole.consume(tokenCondenser.condense(list));
     }
 
-    @Benchmark
+    // as you can see in results.txt, sorted implementation performs way worse that unsorted; benchmark disabled
     public void sorted(Blackhole blackhole) {
         blackhole.consume(orderedTokenCondenser.condense(list));
     }
