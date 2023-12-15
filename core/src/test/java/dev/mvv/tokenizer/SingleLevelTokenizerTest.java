@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.ParameterizedTest.INDEX_PLACEHOLDER;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -56,7 +57,21 @@ class SingleLevelTokenizerTest {
                                 .addWord("]]]ipsum")
                                 .addEnclosedWords('[', ']', "[[", "dolor", "]]")
                                 .build()
+                ),
+                arguments(
+                        "Lorem\u00A0ipsum dolor sit\u2007amet, consectetur\u202Fadipiscing",
+                        new TokenStringBuilder()
+                                .addWords("Lorem\u00A0ipsum", "dolor", "sit\u2007amet,", "consectetur\u202Fadipiscing")
+                                .build()
                 )
+        );
+    }
+
+    public static Stream<Arguments> emptyStrings() {
+        return Stream.of(
+                arguments(""),
+                arguments("      "),
+                arguments(" \n\t\u000B\f\r\u001C\u001D\u001E\u001F  ")
         );
     }
 
@@ -79,6 +94,14 @@ class SingleLevelTokenizerTest {
         var tokens = tokenizer.tokenize(input);
 
         assertEquals(expected, tokens);
+    }
+
+    @MethodSource("emptyStrings")
+    @ParameterizedTest(name = INDEX_PLACEHOLDER)
+    void should_tokenise_empty_strings(String input) {
+        var tokens = tokenizer.tokenize(input);
+
+        assertTrue(tokens.isEmpty());
     }
 
     @MethodSource("illegalEnclosingMappings")

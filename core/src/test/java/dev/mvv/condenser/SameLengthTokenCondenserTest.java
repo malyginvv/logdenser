@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static dev.mvv.distance.EditType.SUBSTITUTION;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -49,7 +50,9 @@ class SameLengthTokenCondenserTest {
                 .addStatic("sit")
                 .addOptions("amet", "ame")
                 .build();
-        assertIterableEquals(List.of(new SameResults(fullResult, 3)), results);
+        var sameResults = new SameResults(fullResult, 3);
+        assertIterableEquals(List.of(sameResults), results);
+        assertEquals("Lorem <ipsum|ipsumm|ipsu> sit <amet|ame> {3}", sameResults.toString());
     }
 
     @Test

@@ -1,0 +1,12 @@
+> Task :core:compileJava UP-TO-DATE
+> Task :core:processResources NO-SOURCE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :core:compileTestFixturesJava UP-TO-DATE
+> Task :core:processTestFixturesResources NO-SOURCE
+> Task :core:testFixturesClasses UP-TO-DATE
+> Task :core:testFixturesJar UP-TO-DATE
+> Task :core:compileTestJava
+> Task :core:processTestResources NO-SOURCE
+> Task :core:testClasses
+> Task :core:test

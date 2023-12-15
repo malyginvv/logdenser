@@ -15,6 +15,19 @@ import static java.lang.Character.isWhitespace;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.unmodifiableMap;
 
+/**
+ * Tokenizes a string to a combination of Word and EnclosedWords tokens dropping all whitespaces between tokens.
+ * The enclosing mapping decides which parts of the string should be extracted as separate tokens.
+ * Only one level of enclosing is supported.
+ * <p>
+ * Example: let's use two enclosing mapping: {@code '[' => ']'} and {@code '(' => ')'}
+ * then the following string
+ * <pre>"[INFO] Call (Call@1234 details=[1, 2, 3]) finished successfully in  (32 ms)"</pre>
+ * will be tokenized as
+ * <pre>"[INFO]", "Call", "(Call@1234 details=[1, 2, 3])", "finished", "successfully", "in", "(32 ms)"</pre>
+ * Notice how the third token, {@code "(Call@1234 details=[1, 2, 3])"}, contains symbols [ and ],
+ * but token boundaries are defined by ( and ) because the opening parenthesis was the first matching enclosing.
+ */
 public class SingleLevelTokenizer implements Tokenizer {
 
     private final Map<Character, Character> enclosingMapping;
@@ -45,7 +58,7 @@ public class SingleLevelTokenizer implements Tokenizer {
         var result = new ArrayList<Token>();
         for (int i = 0; i < charArray.length; i++) {
             char c = charArray[i];
-            if (isWhitespace(c) && openingsSeen == 0) {
+            if ((isWhitespace(c)) && openingsSeen == 0) {
                 if (i > from) {
                     result.add(new Word(String.valueOf(charArray, from, i - from)));
                 }

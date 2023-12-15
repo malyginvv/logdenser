@@ -2,7 +2,8 @@
 
 Log condenser - a small Java library that groups strings based on similarity.
 
-## How it works
+## What it does
+
 A typical application log contains a lot of similar entries: messages that were produced by the same logging statement but with different parameters.
 Let's look at this output:
 ```

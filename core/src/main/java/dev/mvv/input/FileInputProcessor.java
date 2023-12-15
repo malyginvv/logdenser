@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import static java.nio.file.Files.lines;
 
 /**
- * InputProcessor that extracts string from files..
+ * InputProcessor that extracts strings from files.
  */
 public class FileInputProcessor implements InputProcessor<File> {
     @Override
