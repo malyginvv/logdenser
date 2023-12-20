@@ -22,16 +22,16 @@ public class TokenCondenserBenchmark {
     @Param({"1000000"})
     public int inputSize;
 
-    @Param({"0.1", "0.3", "0.5"})
+    @Param({"0.1", "0.3", "0.5", "0.7", "0.9"})
     public double uniqueRatio = 0.01;
 
-    @Param({"1", "2", "3"})
+    @Param({"1", "2", "3", "4", "5"})
     public int maxDistance;
 
-    @Param({"10", "50", "100"})
+    @Param({"10"})
     public int wordLength;
 
-    @Param({"10", "50", "100"})
+    @Param({"50", "100", "500"})
     public int wordsInString;
 
     public List<TokenString> list;
