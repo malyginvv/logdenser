@@ -62,6 +62,10 @@ jobs:
           path: core/build/reports/jacoco/test/html
       - codecov/upload:
           file: core/build/reports/jacoco/test/jacocoTestReport.xml
+      - run:
+          name: Verify coverage
+          command:
+            ./gradlew jacocoTestCoverageVerification
 
 workflows:
   version: 2

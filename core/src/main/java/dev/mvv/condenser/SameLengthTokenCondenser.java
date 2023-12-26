@@ -65,7 +65,7 @@ public class SameLengthTokenCondenser implements TokenCondenser {
             return List.of(fromSingle(tokenStrings.get(0)));
         }
 
-        var tokenCount = tokenStrings.get(0).size();
+        var tokenLength = tokenStrings.get(0).size();
         List<SameResults> results = new ArrayList<>();
         List<TokenString> input = tokenStrings;
         int iteration = 1;
@@ -73,25 +73,24 @@ public class SameLengthTokenCondenser implements TokenCondenser {
             LOGGER.log(DEBUG, "Condensing token strings, iteration " + iteration + ", input size " + input.size());
             List<TokenString> similar = new ArrayList<>();
             List<TokenString> different = new ArrayList<>();
-            BitSet substitutionIndices = new BitSet(tokenCount);
+            BitSet substitutionIndices = new BitSet(tokenLength);
 
             // partition "input" list into two:
             // "similar" contains all token strings that have matching edit distance between them and the first token string
             // "different" contains all others
             var first = input.get(0);
-            if (tokenCount != first.size()) {
-                throw new IllegalArgumentException("Incorrect number of tokens. " +
-                        "Expected " + tokenCount + ", found: " + first.size() + " in {" + first + "}");
-            }
+            checkLength(first, tokenLength);
             similar.add(first);
 
             for (int i = 1; i < input.size(); i++) {
-                var editDistance = editDistanceCalculator.distance(first, input.get(i));
-                if (tokenStringMatcher.test(first, input.get(i)) && editDistanceMatcher.test(editDistance)) {
-                    similar.add(input.get(i));
+                var tokenString = input.get(i);
+                checkLength(tokenString, tokenLength);
+                var editDistance = editDistanceCalculator.distance(first, tokenString);
+                if (tokenStringMatcher.test(first, tokenString) && editDistanceMatcher.test(editDistance)) {
+                    similar.add(tokenString);
                     fillSubstitutionIndices(editDistance, substitutionIndices);
                 } else {
-                    different.add(input.get(i));
+                    different.add(tokenString);
                 }
             } // now "similar" contains at least one element and "different" contains everything else; it might be empty
 
@@ -101,6 +100,13 @@ public class SameLengthTokenCondenser implements TokenCondenser {
             iteration++;
         }
         return results;
+    }
+
+    private void checkLength(TokenString tokenString, int expectedLength) {
+        if (expectedLength != tokenString.size()) {
+            throw new IllegalArgumentException("Incorrect number of tokens. " +
+                    "Expected " + expectedLength + ", found: " + tokenString.size() + " in {" + tokenString + "}");
+        }
     }
 
     private void fillSubstitutionIndices(EditDistance editDistance, BitSet substitutionIndices) {

@@ -7,12 +7,14 @@ import dev.mvv.result.SameResults;
 import dev.mvv.token.TokenStringBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.List;
 
 import static dev.mvv.distance.EditType.SUBSTITUTION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -143,5 +145,37 @@ class SameLengthTokenCondenserTest {
 
         var fullResult = new FullResultBuilder().addStatics("Lorem1", "ipsum", "sit", "amet").build();
         assertIterableEquals(List.of(new SameResults(fullResult, 1)), results);
+    }
+
+    @Test
+    void should_throw_exception_when_two_strings_have_different_length() {
+        var string1 = new TokenStringBuilder().addWords("Lorem", "ipsum", "sit", "amet").build();
+        var string2 = new TokenStringBuilder().addWords("Lorem", "ipsumm", "sit").build();
+
+        Executable executable = () -> condenser.condense(List.of(string1, string2));
+
+        var exception = assertThrows(IllegalArgumentException.class, executable);
+        assertEquals(
+                "Incorrect number of tokens. Expected 4, found: 3 in {Lorem ipsumm sit}",
+                exception.getMessage()
+        );
+    }
+
+    @Test
+    void should_throw_exception_when_strings_have_different_length() {
+        var string1 = new TokenStringBuilder().addWords("Lorem", "ipsum", "sit", "amet").build();
+        var string2 = new TokenStringBuilder().addWords("Lorem", "ipsumm", "sit", "amet").build();
+        var string3 = new TokenStringBuilder().addWords("Lorem", "ipsu", "sit", "amet", "dolor").build();
+
+        given(editDistanceCalculator.distance(string1, string2))
+                .willReturn(new EditDistanceBuilder().addEdit(1, SUBSTITUTION).build());
+
+        Executable executable = () -> condenser.condense(List.of(string1, string2, string3));
+
+        var exception = assertThrows(IllegalArgumentException.class, executable);
+        assertEquals(
+                "Incorrect number of tokens. Expected 4, found: 5 in {Lorem ipsu sit amet dolor}",
+                exception.getMessage()
+        );
     }
 }
