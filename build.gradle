@@ -7,8 +7,8 @@ allprojects {
     }
 }
 
-group "dev.mvv"
-version "0.1-SNAPSHOT"
+group "pro.malygin.logdenser"
+version "0.1.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

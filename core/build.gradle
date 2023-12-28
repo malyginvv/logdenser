@@ -22,8 +22,8 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = "CLASS"
-            includes = ["dev.mvv.*"]
-            excludes = ["dev.mvv.input.*"]
+            includes = ["pro.malygin.logdenser.*"]
+            excludes = ["pro.malygin.logdenser.input.*"]
             limit {
                 counter = "LINE"
                 minimum = 0.9
