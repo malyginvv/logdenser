@@ -1,13 +1,14 @@
 package dev.mvv.result;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Represents a grouping of results that are considered the same or identical.
  *
  * @param fullResult The reference representing the identical results.
  * @param count      The count of identical results.
- * @since 1.0
  */
-public record SameResults(FullResult fullResult, int count) {
+public record SameResults(@NotNull FullResult fullResult, int count) {
 
     @Override
     public String toString() {

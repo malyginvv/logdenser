@@ -1,5 +1,7 @@
 package dev.mvv.result;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,12 @@ import java.util.List;
  *
  * @param options A list of string options.
  */
-public record MultipleOptions(List<String> options) implements ResultPart {
+public record MultipleOptions(@NotNull List<@NotNull String> options) implements ResultPart {
+    @Override
+    public boolean isStatic() {
+        return false;
+    }
+
     @Override
     public String toString() {
         return "<" + String.join("|", options) + ">";

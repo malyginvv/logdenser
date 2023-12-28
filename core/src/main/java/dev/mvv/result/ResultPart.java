@@ -6,4 +6,11 @@ package dev.mvv.result;
  * segments, or elements that collectively contribute to the complete result.
  */
 public interface ResultPart {
+
+    /**
+     * Indicates that this part contains only a static string and not a collection.
+     *
+     * @return contains only a static string
+     */
+    boolean isStatic();
 }
