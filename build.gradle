@@ -5,10 +5,10 @@ allprojects {
     repositories {
         mavenCentral()
     }
-}
 
-group "pro.malygin.logdenser"
-version "0.1.0"
+    group "pro.malygin.logdenser"
+    version "0.1.0"
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

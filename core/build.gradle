@@ -1,5 +1,13 @@
 plugins {
     id "jacoco"
+    id "java-library"
+    id "maven-publish"
+    id "signing"
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -34,4 +42,50 @@ jacocoTestCoverageVerification {
             }
         }
     }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "logdenser-core"
+            from components.java
+            pom {
+                name = "LogDenser"
+                description = "A small Java library for grouping strings based on similarity"
+                url = "https://github.com/malyginvv/logdenser"
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "http://www.opensource.org/licenses/mit-license.php"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "malyginvv"
+                        name = "Vasilii Malygin"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git@github.com:malyginvv/logdenser.git"
+                    developerConnection = "scm:git:git@github.com:malyginvv/logdenser.git"
+                    url = "https://github.com/malyginvv/logdenser"
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+            url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+javadoc {
+    options.addBooleanOption("html5", true)
 }
