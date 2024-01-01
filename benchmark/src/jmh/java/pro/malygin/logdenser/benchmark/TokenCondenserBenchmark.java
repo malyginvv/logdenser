@@ -1,10 +1,5 @@
 package pro.malygin.logdenser.benchmark;
 
-import pro.malygin.logdenser.condenser.SameLengthOrderedTokenCondenser;
-import pro.malygin.logdenser.condenser.SameLengthTokenCondenser;
-import pro.malygin.logdenser.distance.HammingDistanceCalculator;
-import pro.malygin.logdenser.token.TokenString;
-import pro.malygin.logdenser.token.TokenStringGenerator;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Param;
@@ -12,6 +7,11 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
+import pro.malygin.logdenser.condenser.SameLengthOrderedTokenCondenser;
+import pro.malygin.logdenser.condenser.SameLengthTokenCondenser;
+import pro.malygin.logdenser.distance.HammingDistanceCalculator;
+import pro.malygin.logdenser.token.TokenString;
+import pro.malygin.logdenser.token.TokenStringGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +52,11 @@ public class TokenCondenserBenchmark {
 
         tokenCondenser = new SameLengthTokenCondenser(
                 new HammingDistanceCalculator(),
-                (left, right) -> left.firstToken().equals(right.firstToken()),
-                maxDistance
+                (left, right, editDistance) -> left.firstToken().equals(right.firstToken()) && editDistance.distance() <= maxDistance
         );
         orderedTokenCondenser = new SameLengthOrderedTokenCondenser(
                 new HammingDistanceCalculator(),
-                (left, right) -> left.firstToken().equals(right.firstToken()),
-                maxDistance
+                (left, right, editDistance) -> left.firstToken().equals(right.firstToken()) && editDistance.distance() <= maxDistance
         );
     }
 

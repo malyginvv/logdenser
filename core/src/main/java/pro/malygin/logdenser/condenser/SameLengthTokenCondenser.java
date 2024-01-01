@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 import static java.lang.System.Logger.Level.DEBUG;
 import static java.util.Collections.emptyList;
@@ -33,21 +31,29 @@ public class SameLengthTokenCondenser implements TokenCondenser {
     private static final Logger LOGGER = System.getLogger(SameLengthTokenCondenser.class.getName());
 
     private final EditDistanceCalculator editDistanceCalculator;
-    private final BiPredicate<TokenString, TokenString> tokenStringMatcher;
-    private final Predicate<EditDistance> editDistanceMatcher;
+    private final CondensingMatcher condensingMatcher;
 
-    public SameLengthTokenCondenser(EditDistanceCalculator editDistanceCalculator,
-                                    BiPredicate<TokenString, TokenString> tokenStringMatcher,
-                                    Predicate<EditDistance> editDistanceMatcher) {
+    /**
+     * Creates a condenser with explicit condensing matcher.
+     *
+     * @param editDistanceCalculator Edit distance calculator.
+     * @param condensingMatcher      Condensing matcher.
+     */
+    public SameLengthTokenCondenser(@NotNull EditDistanceCalculator editDistanceCalculator,
+                                    @NotNull CondensingMatcher condensingMatcher) {
         this.editDistanceCalculator = editDistanceCalculator;
-        this.tokenStringMatcher = tokenStringMatcher;
-        this.editDistanceMatcher = editDistanceMatcher;
+        this.condensingMatcher = condensingMatcher;
     }
 
-    public SameLengthTokenCondenser(EditDistanceCalculator editDistanceCalculator,
-                                    BiPredicate<TokenString, TokenString> tokenStringMatcher,
+    /**
+     * Creates a condenser with distance matcher.
+     *
+     * @param editDistanceCalculator Edit distance calculator.
+     * @param maxDistance            Maximum edit distance for treating two token strings as similar.
+     */
+    public SameLengthTokenCondenser(@NotNull EditDistanceCalculator editDistanceCalculator,
                                     int maxDistance) {
-        this(editDistanceCalculator, tokenStringMatcher, editDistance -> editDistance.distance() <= maxDistance);
+        this(editDistanceCalculator, ((left, right, editDistance) -> editDistance.distance() <= maxDistance));
     }
 
     /**
@@ -86,7 +92,7 @@ public class SameLengthTokenCondenser implements TokenCondenser {
                 var tokenString = input.get(i);
                 checkLength(tokenString, tokenLength);
                 var editDistance = editDistanceCalculator.distance(first, tokenString);
-                if (tokenStringMatcher.test(first, tokenString) && editDistanceMatcher.test(editDistance)) {
+                if (condensingMatcher.matches(first, tokenString, editDistance)) {
                     similar.add(tokenString);
                     fillSubstitutionIndices(editDistance, substitutionIndices);
                 } else {

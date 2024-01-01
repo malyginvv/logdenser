@@ -52,8 +52,7 @@ class FileLogCondenserTest {
                 ),
                 new SameLengthTokenCondenser(
                         new HammingDistanceCalculator(),
-                        (left, right) -> left.firstToken().equals(right.firstToken()),
-                        2
+                        (left, right, editDistance) -> left.firstToken().equals(right.firstToken()) && editDistance.distance() <= 2
                 )
         );
     }

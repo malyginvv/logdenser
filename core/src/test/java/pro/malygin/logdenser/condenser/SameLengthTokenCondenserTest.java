@@ -1,22 +1,22 @@
 package pro.malygin.logdenser.condenser;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import pro.malygin.logdenser.distance.EditDistanceBuilder;
 import pro.malygin.logdenser.distance.EditDistanceCalculator;
 import pro.malygin.logdenser.result.FullResultBuilder;
 import pro.malygin.logdenser.result.SameResults;
 import pro.malygin.logdenser.token.TokenStringBuilder;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.util.List;
 
-import static pro.malygin.logdenser.distance.EditType.SUBSTITUTION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static pro.malygin.logdenser.distance.EditType.SUBSTITUTION;
 
 class SameLengthTokenCondenserTest {
 
@@ -28,8 +28,7 @@ class SameLengthTokenCondenserTest {
         editDistanceCalculator = mock();
         condenser = new SameLengthTokenCondenser(
                 editDistanceCalculator,
-                (left, right) -> left.firstToken().equals(right.firstToken()),
-                2
+                (left, right, editDistance) -> left.firstToken().equals(right.firstToken()) && editDistance.distance() <= 2
         );
     }
 
@@ -61,8 +60,7 @@ class SameLengthTokenCondenserTest {
     void should_condense_strings_with_low_similarity() {
         condenser = new SameLengthTokenCondenser(
                 editDistanceCalculator,
-                (left, right) -> left.firstToken().equals(right.firstToken()),
-                1
+                (left, right, editDistance) -> left.firstToken().equals(right.firstToken()) && editDistance.distance() <= 1
         );
         var string1 = new TokenStringBuilder().addWords("Lorem", "ipsum", "sit", "amet").build();
         var string2 = new TokenStringBuilder().addWords("Lorem", "ipsumm", "sit", "amet").build();
@@ -114,7 +112,6 @@ class SameLengthTokenCondenserTest {
     void should_condense_empty_strings() {
         condenser = new SameLengthTokenCondenser(
                 editDistanceCalculator,
-                (left, right) -> true,
                 1
         );
         var string1 = new TokenStringBuilder().build();
