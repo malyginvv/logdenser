@@ -1,5 +1,6 @@
 package pro.malygin.logdenser.condenser;
 
+import org.jetbrains.annotations.NotNull;
 import pro.malygin.logdenser.input.InputProcessor;
 import pro.malygin.logdenser.processor.LineProcessor;
 import pro.malygin.logdenser.result.SameResults;
@@ -31,17 +32,17 @@ public class LogCondenser<T> {
      * @param lineProcessor  The LineProcessor used to process individual log lines for transformation.
      * @param tokenCondenser The TokenCondenser used to condense tokenized log data.
      */
-    public LogCondenser(InputProcessor<T> inputProcessor,
-                        Predicate<String> filter,
-                        LineProcessor lineProcessor,
-                        TokenCondenser tokenCondenser) {
+    public LogCondenser(@NotNull InputProcessor<T> inputProcessor,
+                        @NotNull Predicate<String> filter,
+                        @NotNull LineProcessor lineProcessor,
+                        @NotNull TokenCondenser tokenCondenser) {
         this.inputProcessor = inputProcessor;
         this.filter = filter;
         this.lineProcessor = lineProcessor;
         this.tokenCondenser = tokenCondenser;
     }
 
-    public List<SameResults> condense(T input) {
+    public @NotNull List<SameResults> condense(@NotNull T input) {
         var bySize = inputProcessor.process(input)
                 .filter(filter)
                 .map(lineProcessor::process)

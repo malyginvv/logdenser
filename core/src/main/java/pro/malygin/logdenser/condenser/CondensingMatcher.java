@@ -8,6 +8,7 @@ import pro.malygin.logdenser.token.TokenString;
  * Defines the contract for classes responsible for determining
  * whether two tokenized strings should be condensed based on specific matching criteria.
  */
+@FunctionalInterface
 public interface CondensingMatcher {
 
     /**
